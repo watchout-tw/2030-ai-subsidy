@@ -1,3 +1,10 @@
+function createSection() {
+  const section = document.createElement('div');
+  section.className = 'section';
+
+  return section
+}
+
 function createSectionHeader(title, logo, count, updateTime) {
   const sectionHeader = document.createElement('div');
   sectionHeader.className = 'section-header';
@@ -60,29 +67,58 @@ function createContentBlock(title, buttonLabel) {
   return contentBlock;
 }
 
+function createErrorBlock() {
+  const errorBlock = document.createElement('div');
+  errorBlock.className = 'error-block';
+
+  const errorCodeElement = document.createElement('p');
+  errorCodeElement.className = 'error-code';
+  errorCodeElement.textContent = '404';
+  errorBlock.appendChild(errorCodeElement);
+
+  const errorMsgElement = document.createElement('p');
+  errorMsgElement.className = 'error-message';
+  errorMsgElement.textContent = '此內容暫時無法顯示';
+  errorBlock.appendChild(errorMsgElement);
+
+  return errorBlock
+}
+
+function buildBlock(item) {
+  const block = fieldValidate(item) ? createContentBlock(item.name, item.type) : createErrorBlock();
+  return block
+}
+
+function fieldValidate(data) {
+  const fields = ['name', 'organizer', 'description', 'target', 'type', 'contact', 'url', 'logo'];
+  return fields.every(field => !!data[field]);
+}
+
 // Fetch data from data.json and add content blocks dynamically
 fetch('http://localhost:8080/data/economic_affairs/ai_subsidy/projects.json')
   .then(response => response.json())
   .then(data => {
-      const mainContent = document.querySelector('.main-content');
-      const sectionHeader = createSectionHeader(data.projects[0].organizer, data.projects[0].logo, data.projects.length, data.last_update_time);
-      mainContent.appendChild(sectionHeader);
-      data.projects.forEach(item => {
-          const contentBlock = createContentBlock(item.name, item.type);
-          mainContent.appendChild(contentBlock);
-      });
+    const mainContent = document.querySelector('.main-content');
+    const section = createSection();
+    const sectionHeader = createSectionHeader(data.projects[0].organizer, data.projects[0].logo, data.projects.length, data.last_update_time);
+    section.appendChild(sectionHeader);
+    data.projects.forEach(item => {
+      section.appendChild(buildBlock(item));
+    });
+    mainContent.appendChild(section);
   })
   .catch(error => console.error('Error fetching data:', error));
 
 fetch('http://localhost:8080/data/ntsc/ai_subsidy/projects.json')
   .then(response => response.json())
   .then(data => {
-      const mainContent = document.querySelector('.main-content');
-      const sectionHeader = createSectionHeader(data.projects[0].organizer, data.projects[0].logo, data.projects.length, data.last_update_time);
-      mainContent.appendChild(sectionHeader);
-      data.projects.forEach(item => {
-          const contentBlock = createContentBlock(item.name, item.type);
-          mainContent.appendChild(contentBlock);
-      });
+    const mainContent = document.querySelector('.main-content');
+    const section = createSection();
+    const sectionHeader = createSectionHeader(data.projects[0].organizer, data.projects[0].logo, data.projects.length, data.last_update_time);
+    section.appendChild(sectionHeader);
+    data.projects.forEach(item => {
+      section.appendChild(buildBlock(item));
+    });
+    mainContent.appendChild(section);
   })
   .catch(error => console.error('Error fetching data:', error));
