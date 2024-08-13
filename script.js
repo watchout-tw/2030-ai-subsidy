@@ -1,3 +1,18 @@
+const subsidySources = [
+  'http://localhost:8080/data/economic_affairs/ai_subsidy/projects.json',
+  'http://localhost:8080/data/ntsc/ai_subsidy/projects.json'
+]
+const _FIELDS = [
+  'name',
+  'organizer',
+  'description',
+  'target',
+  'type',
+  'contact',
+  'url',
+  'logo'
+];
+
 function createSection() {
   const section = document.createElement('div');
   section.className = 'section';
@@ -147,8 +162,7 @@ function buildBlock(item) {
 }
 
 function fieldValidate(data) {
-  const fields = ['name', 'organizer', 'description', 'target', 'type', 'contact', 'url', 'logo'];
-  return fields.every(field => !!data[field]);
+  return _FIELDS.every(field => !!data[field]);
 }
 
 function setButtonEvent() {

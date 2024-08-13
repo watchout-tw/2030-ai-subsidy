@@ -1,0 +1,1 @@
+1. 請於 script.js 最上方 `subsidySources`，填入所有 AI 補助資源的 JSON 網址。
