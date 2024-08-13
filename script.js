@@ -151,6 +151,22 @@ function fieldValidate(data) {
   return fields.every(field => !!data[field]);
 }
 
+function setButtonEvent() {
+  document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', function() {
+      const detailContent = this.parentNode.nextElementSibling;
+
+      if (detailContent.style.display === 'none' || detailContent.style.display === '') {
+          detailContent.style.display = 'block';
+          this.textContent = '收起';
+      } else {
+          detailContent.style.display = 'none';
+          this.textContent = '展開';
+      }
+    });
+  });
+}
+
 // Fetch data from data.json and add content blocks dynamically
 fetch('http://localhost:8080/data/economic_affairs/ai_subsidy/projects.json')
   .then(response => response.json())
@@ -163,24 +179,8 @@ fetch('http://localhost:8080/data/economic_affairs/ai_subsidy/projects.json')
       section.appendChild(buildBlock(item));
     });
     mainContent.appendChild(section);
-
-    document.querySelectorAll('button').forEach(button => {
-      button.addEventListener('click', function() {
-        const detailContent = this.parentNode.nextElementSibling;
-
-        if (detailContent.style.display === 'none' || detailContent.style.display === '') {
-            detailContent.style.display = 'block';
-            this.textContent = '收起';
-        } else {
-            detailContent.style.display = 'none';
-            this.textContent = '展開';
-        }
-      });
-    });
+    return fetch('http://localhost:8080/data/ntsc/ai_subsidy/projects.json')
   })
-  .catch(error => console.error('Error fetching data:', error));
-
-fetch('http://localhost:8080/data/ntsc/ai_subsidy/projects.json')
   .then(response => response.json())
   .then(data => {
     const mainContent = document.querySelector('.main-content');
@@ -191,5 +191,6 @@ fetch('http://localhost:8080/data/ntsc/ai_subsidy/projects.json')
       section.appendChild(buildBlock(item));
     });
     mainContent.appendChild(section);
+    setButtonEvent();
   })
   .catch(error => console.error('Error fetching data:', error));
