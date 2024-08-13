@@ -37,32 +37,89 @@ function createSectionHeader(title, logo, count, updateTime) {
   return sectionHeader
 }
 
+function createDetailContentBlock(item) {
+  const detailContent = document.createElement('div');
+  detailContent.className = 'detail-content';
+  detailContent.style.display = 'none';
+
+  const organizerTitle = document.createElement('div');
+  organizerTitle.className = 'detail-title organizer';
+  organizerTitle.textContent = '主辦單位';
+
+  const descriptionTitle = document.createElement('div');
+  descriptionTitle.className = 'detail-title description';
+  descriptionTitle.textContent = '簡介與補助範疇';
+
+  const targetTitle = document.createElement('div');
+  targetTitle.className = 'detail-title target';
+  targetTitle.textContent = '補助對象';
+
+  const contactTitle = document.createElement('div');
+  contactTitle.className = 'detail-title contact';
+  contactTitle.textContent = '聯絡諮詢窗口';
+
+  const organizer = document.createElement('p');
+  organizer.className = 'detail-content-text organizer';
+  organizer.textContent = item.organizer;
+
+  const description = document.createElement('p');
+  description.className = 'detail-content-text description';
+  description.textContent = item.description;
+
+  const target = document.createElement('p');
+  target.className = 'detail-content-text target';
+  target.textContent = item.target;
+
+  const contact = document.createElement('p');
+  contact.className = 'detail-content-textcontact';
+  contact.textContent = item.contact;
+
+  const aTag = document.createElement('a');
+  aTag.href = item.url;
+  aTag.target = '_blank';
+  const applyButton = document.createElement('button');
+  applyButton.className = 'apply-button';
+  applyButton.textContent = '前往申請';
+  aTag.appendChild(applyButton);
+
+  detailContent.appendChild(organizerTitle);
+  detailContent.appendChild(organizer);
+  detailContent.appendChild(descriptionTitle);
+  detailContent.appendChild(description);
+  detailContent.appendChild(targetTitle);
+  detailContent.appendChild(target);
+  detailContent.appendChild(contactTitle);
+  detailContent.appendChild(contact);
+  detailContent.appendChild(aTag);
+
+  return detailContent
+}
+
 // Function to create a content block
-function createContentBlock(title, buttonLabel) {
+function createContentBlock(item) {
   const contentBlock = document.createElement('div');
   contentBlock.className = 'content-block';
 
   const titleElement = document.createElement('h3');
-  titleElement.textContent = title;
+  titleElement.textContent = item.name;
   contentBlock.appendChild(titleElement);
 
   const blueButton = document.createElement('div');
   blueButton.className = 'type';
-  blueButton.textContent = buttonLabel;
+  blueButton.textContent = item.type;
   contentBlock.appendChild(blueButton);
 
+  const flexDiv = document.createElement('div');
+  flexDiv.className = 'expand';
+  contentBlock.appendChild(flexDiv);
+
   const expandButton = document.createElement('button');
-  expandButton.className = 'expand-button';
-  expandButton.addEventListener('click', () => {
-      alert('展開功能尚未實作');
-  });
+  expandButton.className = 'button';
+  expandButton.textContent = '展開';
 
-  const button = document.createElement('span');
-  button.className = 'button';
-  button.textContent = '展開';
-  expandButton.appendChild(button);
-
-  contentBlock.appendChild(expandButton);
+  flexDiv.appendChild(expandButton);
+  contentBlock.appendChild(flexDiv);
+  contentBlock.appendChild(createDetailContentBlock(item));
 
   return contentBlock;
 }
@@ -78,14 +135,14 @@ function createErrorBlock() {
 
   const errorMsgElement = document.createElement('p');
   errorMsgElement.className = 'error-message';
-  errorMsgElement.textContent = '此內容暫時無法顯示';
+  errorMsgElement.textContent = '此筆資料不完全，暫時無法顯示';
   errorBlock.appendChild(errorMsgElement);
 
   return errorBlock
 }
 
 function buildBlock(item) {
-  const block = fieldValidate(item) ? createContentBlock(item.name, item.type) : createErrorBlock();
+  const block = fieldValidate(item) ? createContentBlock(item) : createErrorBlock();
   return block
 }
 
@@ -106,6 +163,20 @@ fetch('http://localhost:8080/data/economic_affairs/ai_subsidy/projects.json')
       section.appendChild(buildBlock(item));
     });
     mainContent.appendChild(section);
+
+    document.querySelectorAll('button').forEach(button => {
+      button.addEventListener('click', function() {
+        const detailContent = this.parentNode.nextElementSibling;
+
+        if (detailContent.style.display === 'none' || detailContent.style.display === '') {
+            detailContent.style.display = 'block';
+            this.textContent = '收起';
+        } else {
+            detailContent.style.display = 'none';
+            this.textContent = '展開';
+        }
+      });
+    });
   })
   .catch(error => console.error('Error fetching data:', error));
 

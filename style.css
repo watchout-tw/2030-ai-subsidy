@@ -127,19 +127,53 @@ header {
   margin-right: 10px;
 }
 
-.content-block .expand-button {
+.expand {
+  display: flex;
+  justify-content: flex-end;
   width: 100%;
-  font-size: 18px;
-  text-align: right;
+}
+
+.expand button {
   color: #4a90e2;
   border: none;
   background: none;
-}
-
-.content-block .expand-button .button {
+  font-size: 18px;
   padding-right: 10px;
   cursor: pointer;
 }
+
+.detail-content {
+  display: none;
+  width: 100%;
+}
+
+.detail-content p {
+  margin: 10px 0;
+}
+
+.detail-title {
+  font-size: 14px;
+  color: #757575;
+}
+
+.detail-content-text {
+  font-size: 18px;
+}
+
+.apply-button {
+  display: block;
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  letter-spacing: 5px;
+  background-color: #3d1b9c;
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
 
 .error-block {
   background-color: #f5f5f5;
