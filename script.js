@@ -143,15 +143,25 @@ function createErrorBlock() {
   const errorBlock = document.createElement('div');
   errorBlock.className = 'error-block';
 
-  const errorCodeElement = document.createElement('p');
-  errorCodeElement.className = 'error-code';
-  errorCodeElement.textContent = '404';
-  errorBlock.appendChild(errorCodeElement);
+  const errorIconImg = document.createElement('img');
+  errorIconImg.src = 'http://localhost:8080/assets/user-interface-warning.png';
+  errorIconImg.className = 'error-icon';
 
-  const errorMsgElement = document.createElement('p');
-  errorMsgElement.className = 'error-message';
-  errorMsgElement.textContent = '此筆資料不完全，暫時無法顯示';
-  errorBlock.appendChild(errorMsgElement);
+  const errorMessageElement = document.createElement('div');
+  errorMessageElement.className = 'error-message';
+
+  const codeElement = document.createElement('p');
+  codeElement.className = 'code';
+  codeElement.textContent = '404';
+  errorMessageElement.appendChild(codeElement);
+
+  const textElement = document.createElement('p');
+  textElement.className = 'text';
+  textElement.textContent = '此筆資料不完全，暫時無法顯示';
+  errorMessageElement.appendChild(textElement);
+
+  errorBlock.appendChild(errorIconImg);
+  errorBlock.appendChild(errorMessageElement);
 
   return errorBlock
 }
