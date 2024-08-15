@@ -9,7 +9,7 @@
       "type": "科技研發補助",
       "contact": "(02)8765-4321分機1234，王小姐",
       "url": "https://nstc.gov.tw/ai-application",
-      "logo": "http://localhost:8080/assets/ntsc.png"
+      "logo": "https://beta.blablabla.watchout.tw/assets/ntsc.png"
     },
     {
       "name": "智慧農業發展推動計畫",
@@ -19,7 +19,7 @@
       "type": "農業科技補助",
       "contact": "(02)3344-5566分機5678，李先生",
       "url": "https://nstc.gov.tw/smart-agriculture",
-      "logo": "http://localhost:8080/assets/ntsc.png"
+      "logo": "https://beta.blablabla.watchout.tw/assets/ntsc.png"
     },
     {
       "test": "錯誤資料",
@@ -30,7 +30,7 @@
       "type": "智慧城市補助",
       "contact": "(02)4455-6677分機8910，張小姐",
       "url": "https://nstc.gov.tw/smart-city",
-      "logo": "http://localhost:8080/assets/ntsc.png"
+      "logo": "https://beta.blablabla.watchout.tw/assets/ntsc.png"
     },
     {
       "name": "先進材料技術研發計畫",
@@ -40,7 +40,7 @@
       "type": "材料科技補助",
       "contact": "(02)5566-7788分機3344，陳先生",
       "url": "https://nstc.gov.tw/advanced-materials",
-      "logo": "http://localhost:8080/assets/ntsc.png"
+      "logo": "https://beta.blablabla.watchout.tw/assets/ntsc.png"
     },
     {
       "name": "清潔能源技術推廣計畫",
@@ -50,7 +50,7 @@
       "type": "能源科技補助",
       "contact": "(02)6677-8899分機5566，林先生",
       "url": "https://nstc.gov.tw/clean-energy",
-      "logo": "http://localhost:8080/assets/ntsc.png"
+      "logo": "https://beta.blablabla.watchout.tw/assets/ntsc.png"
     }
   ]
 }

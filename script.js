@@ -1,6 +1,6 @@
 const subsidySources = [
-  'http://localhost:8080/data/economic_affairs/ai_subsidy/projects.json',
-  'http://localhost:8080/data/ntsc/ai_subsidy/projects.json'
+  'https://beta.blablabla.watchout.tw/data/economic_affairs/ai_subsidy/projects.json',
+  'https://beta.blablabla.watchout.tw/data/ntsc/ai_subsidy/projects.json'
 ]
 const _FIELDS = [
   'name',
@@ -144,7 +144,7 @@ function createErrorBlock() {
   errorBlock.className = 'error-block';
 
   const errorIconImg = document.createElement('img');
-  errorIconImg.src = 'http://localhost:8080/assets/user-interface-warning.png';
+  errorIconImg.src = 'https://www.flaticon.com/download/icon/11743736?icon_id=11743736&author=668&team=668&keyword=Error&pack=11743657&style=1&style_id=1369&format=png&color=%23000000&colored=1&size=512&selection=1&type=standard&search=404';
   errorIconImg.className = 'error-icon';
 
   const errorMessageElement = document.createElement('div');
@@ -192,7 +192,7 @@ function setButtonEvent() {
 }
 
 // Fetch data from data.json and add content blocks dynamically
-fetch('http://localhost:8080/data/economic_affairs/ai_subsidy/projects.json')
+fetch('https://beta.blablabla.watchout.tw/data/economic_affairs/ai_subsidy/projects.json')
   .then(response => response.json())
   .then(data => {
     const mainContent = document.querySelector('.main-content');
@@ -203,7 +203,7 @@ fetch('http://localhost:8080/data/economic_affairs/ai_subsidy/projects.json')
       section.appendChild(buildBlock(item));
     });
     mainContent.appendChild(section);
-    return fetch('http://localhost:8080/data/ntsc/ai_subsidy/projects.json')
+    return fetch('https://beta.blablabla.watchout.tw/data/ntsc/ai_subsidy/projects.json')
   })
   .then(response => response.json())
   .then(data => {
