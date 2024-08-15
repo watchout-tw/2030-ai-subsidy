@@ -1,6 +1,10 @@
+const mode = 'dev'
+// use beta when on cloud
+const apiUrl = mode === 'dev' ? 'http://localhost:8080' : 'https://beta.blablabla.watchout.tw'
+
 const subsidySources = [
-  'https://beta.blablabla.watchout.tw/data/economic_affairs/ai_subsidy/projects.json',
-  'https://beta.blablabla.watchout.tw/data/ntsc/ai_subsidy/projects.json'
+  `${apiUrl}/data/economic_affairs/ai_subsidy/projects.json`,
+  `${apiUrl}/data/ntsc/ai_subsidy/projects.json`
 ]
 const _FIELDS = [
   'name',
@@ -144,7 +148,7 @@ function createErrorBlock() {
   errorBlock.className = 'error-block';
 
   const errorIconImg = document.createElement('img');
-  errorIconImg.src = 'https://www.flaticon.com/download/icon/11743736?icon_id=11743736&author=668&team=668&keyword=Error&pack=11743657&style=1&style_id=1369&format=png&color=%23000000&colored=1&size=512&selection=1&type=standard&search=404';
+  errorIconImg.src = `${apiUrl}/assets/error.png`;
   errorIconImg.className = 'error-icon';
 
   const errorMessageElement = document.createElement('div');
@@ -178,21 +182,27 @@ function fieldValidate(data) {
 function setButtonEvent() {
   document.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', function() {
+      document.querySelectorAll('.detail-content').forEach(block => {
+        block.style.display = 'none'
+      })
+      document.querySelectorAll('.expand button').forEach(block => {
+        block.style.display = 'block'
+      })
+
       const detailContent = this.parentNode.nextElementSibling;
 
       if (detailContent.style.display === 'none' || detailContent.style.display === '') {
           detailContent.style.display = 'block';
-          this.textContent = '收起';
+          this.style.display = 'none';
       } else {
           detailContent.style.display = 'none';
-          this.textContent = '展開';
       }
     });
   });
 }
 
 // Fetch data from data.json and add content blocks dynamically
-fetch('https://beta.blablabla.watchout.tw/data/economic_affairs/ai_subsidy/projects.json')
+fetch(subsidySources[0])
   .then(response => response.json())
   .then(data => {
     const mainContent = document.querySelector('.main-content');
@@ -203,7 +213,7 @@ fetch('https://beta.blablabla.watchout.tw/data/economic_affairs/ai_subsidy/proje
       section.appendChild(buildBlock(item));
     });
     mainContent.appendChild(section);
-    return fetch('https://beta.blablabla.watchout.tw/data/ntsc/ai_subsidy/projects.json')
+    return fetch(subsidySources[1])
   })
   .then(response => response.json())
   .then(data => {

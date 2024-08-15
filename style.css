@@ -203,3 +203,9 @@ header {
 .error-block .error-message .text {
   margin: 0;
 }
+
+@media only screen and (max-width: 767px) {
+  .section-info .update-time {
+    text-align: left;
+  }
+}
