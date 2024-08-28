@@ -1,11 +1,10 @@
-const mode = 'dev'
-// use beta when on cloud
-const apiUrl = mode === 'dev' ? 'http://localhost:8080' : 'https://beta.blablabla.watchout.tw'
-
 const subsidySources = [
-  `${apiUrl}/data/economic_affairs/ai_subsidy/projects.json`,
-  `${apiUrl}/data/ntsc/ai_subsidy/projects.json`
+  // 'https://gdb.nat.gov.tw/about/ai_subsidy/projects.json',
+  // 'http://tiip.itnet.org.tw/ai_subsidy/projects.json',
+  'https://raw.githubusercontent.com/watchout-tw/2030-ai-subsidy/main/data/economic_affairs/ai_subsidy/projects.json',
+  'https://raw.githubusercontent.com/watchout-tw/2030-ai-subsidy/main/data/ntsc/ai_subsidy/projects.json'
 ]
+const errorImgSrc = 'https://raw.githubusercontent.com/watchout-tw/2030-ai-subsidy/main/assets/error.png'
 const _FIELDS = [
   'name',
   'organizer',
@@ -90,7 +89,7 @@ function createDetailContentBlock(item) {
   target.textContent = item.target;
 
   const contact = document.createElement('p');
-  contact.className = 'detail-content-textcontact';
+  contact.className = 'detail-content-text contact';
   contact.textContent = item.contact;
 
   const aTag = document.createElement('a');
@@ -148,7 +147,7 @@ function createErrorBlock() {
   errorBlock.className = 'error-block';
 
   const errorIconImg = document.createElement('img');
-  errorIconImg.src = `${apiUrl}/assets/error.png`;
+  errorIconImg.src = errorImgSrc;
   errorIconImg.className = 'error-icon';
 
   const errorMessageElement = document.createElement('div');
@@ -202,9 +201,10 @@ function setButtonEvent() {
 }
 
 // Fetch data from data.json and add content blocks dynamically
-fetch(subsidySources[0])
-  .then(response => response.json())
-  .then(data => {
+async function fetchData() {
+  for(let i = 0; i < subsidySources.length; i++) {
+    const response = await fetch(subsidySources[i])
+    const data = await response.json()
     const mainContent = document.querySelector('.main-content');
     const section = createSection();
     const sectionHeader = createSectionHeader(data.projects[0].organizer, data.projects[0].logo, data.projects.length, data.last_update_time);
@@ -213,18 +213,8 @@ fetch(subsidySources[0])
       section.appendChild(buildBlock(item));
     });
     mainContent.appendChild(section);
-    return fetch(subsidySources[1])
-  })
-  .then(response => response.json())
-  .then(data => {
-    const mainContent = document.querySelector('.main-content');
-    const section = createSection();
-    const sectionHeader = createSectionHeader(data.projects[0].organizer, data.projects[0].logo, data.projects.length, data.last_update_time);
-    section.appendChild(sectionHeader);
-    data.projects.forEach(item => {
-      section.appendChild(buildBlock(item));
-    });
-    mainContent.appendChild(section);
-    setButtonEvent();
-  })
-  .catch(error => console.error('Error fetching data:', error));
+  }
+  setButtonEvent();
+}
+
+fetchData();
