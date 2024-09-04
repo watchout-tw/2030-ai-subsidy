@@ -5,6 +5,7 @@ const subsidySources = [
   'https://raw.githubusercontent.com/watchout-tw/2030-ai-subsidy/main/data/ntsc/ai_subsidy/projects.json'
 ]
 const errorImgSrc = 'https://raw.githubusercontent.com/watchout-tw/2030-ai-subsidy/main/assets/error.png'
+const errorPageSrc = 'https://digi.nstc.gov.tw/AnnoucePage2.aspx'
 const _FIELDS = [
   'name',
   'organizer',
@@ -143,6 +144,11 @@ function createContentBlock(item) {
 }
 
 function createErrorBlock() {
+  const errorLink = document.createElement('a');
+  errorLink.className = 'error-link';
+  errorLink.href = errorPageSrc;
+  errorLink.target = '_blank';
+
   const errorBlock = document.createElement('div');
   errorBlock.className = 'error-block';
 
@@ -165,8 +171,8 @@ function createErrorBlock() {
 
   errorBlock.appendChild(errorIconImg);
   errorBlock.appendChild(errorMessageElement);
-
-  return errorBlock
+  errorLink.appendChild(errorBlock);
+  return errorLink
 }
 
 function buildBlock(item) {
