@@ -1,8 +1,8 @@
 {
-  "last_update_time": "2024-06-09",
+  "last_update_time": "2000-01-01",
   "projects": [
     {
-      "name": "人工智慧技術應用研發計畫",
+      "name": "（我是假資料）人工智慧技術應用研發計畫",
       "organizer": "國家科學及技術委員會",
       "description": "支持企業在人工智慧技術應用領域的研發，促進技術創新與市場應用。",
       "target": "•科技公司\n•研究機構\n•創新團隊",
@@ -12,7 +12,7 @@
       "logo": "https://beta.blablabla.watchout.tw/assets/ntsc.png"
     },
     {
-      "name": "智慧農業發展推動計畫",
+      "name": "（我是假資料）智慧農業發展推動計畫",
       "organizer": "國家科學及技術委員會",
       "description": "推廣智慧農業技術，提升農業生產效率與可持續性。",
       "target": "•農業企業\n•農業技術公司\n•研究機構",
@@ -22,7 +22,7 @@
       "logo": "https://beta.blablabla.watchout.tw/assets/ntsc.png"
     },
     {
-      "test": "錯誤資料",
+      "test": "（我是假資料）錯誤資料",
       "test1": "智慧城市創新應用計畫",
       "test2": "國家科學及技術委員會",
       "test3": "支持智慧城市相關技術的開發與應用，提升城市生活品質與運營效率。",
@@ -33,7 +33,7 @@
       "logo": "https://beta.blablabla.watchout.tw/assets/ntsc.png"
     },
     {
-      "name": "先進材料技術研發計畫",
+      "name": "（我是假資料）先進材料技術研發計畫",
       "organizer": "國家科學及技術委員會",
       "description": "推動先進材料技術的研發與應用，促進新材料的發展與產業應用。",
       "target": "•材料科學公司\n•研發機構\n•產學合作團隊",
@@ -43,7 +43,7 @@
       "logo": "https://beta.blablabla.watchout.tw/assets/ntsc.png"
     },
     {
-      "name": "清潔能源技術推廣計畫",
+      "name": "（我是假資料）清潔能源技術推廣計畫",
       "organizer": "國家科學及技術委員會",
       "description": "促進清潔能源技術的開發與應用，支持可再生能源產業的成長。",
       "target": "•能源公司\n•科技企業\n•研究機構",
