@@ -41,7 +41,7 @@ header {
 }
 
 .main-content {
-  padding: 20px;
+  padding: 2px;
 }
 
 .section {
@@ -59,7 +59,7 @@ header {
   padding: 10px;
   margin-bottom: 20px;
   display: flex;
-  align-items: center;
+  align-items: start;
 }
 
 .section-logo {
