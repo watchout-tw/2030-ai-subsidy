@@ -209,11 +209,9 @@ function setButtonEvent() {
   });
 }
 
-// Fetch data from data.json and add content blocks dynamically
-async function fetchData() {
-  for(let i = 0; i < subsidySources.length; i++) {
-    const response = await fetch(subsidySources[i])
-    const data = await response.json()
+async function readData(dataList = []) {
+  for(let i = 0; i < dataList.length; i++) {
+    const data = dataList[i]
     const mainContent = document.querySelector('.main-content');
     const section = createSection();
     const sectionHeader = createSectionHeader(data.projects[0].organizer, data.projects[0].logo, data.projects.length, data.last_update_time);
@@ -226,4 +224,9 @@ async function fetchData() {
   setButtonEvent();
 }
 
-fetchData();
+let dataList = []
+// 以下為兩筆範例假資料：
+dataList.push(ntscGovTwDataList)
+dataList.push(eaGovTwdataList)
+// TODO: 於此新增各部會 js 檔中提供的 xxxDataList 變數
+readData(dataList);

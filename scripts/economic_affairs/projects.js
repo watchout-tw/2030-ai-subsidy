@@ -1,4 +1,4 @@
-{
+var eaGovTwdataList = {
   "last_update_time": "2000-01-01",
   "projects": [
     {
