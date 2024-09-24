@@ -184,6 +184,21 @@ header {
   text-align: center;
 }
 
+.error-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  text-align: center;
+  color: #000000;
+  margin-top: 10px;
+}
+
+.error-header .error-message .text {
+  margin: 0;
+  font-size: 24px;
+}
+
 .error-link {
   text-decoration: none;
 }
@@ -198,7 +213,6 @@ header {
   color: #000000;
   border-left: solid 4px grey;
   margin-top: 10px;
-  /* padding-bottom: 10px; */
 }
 
 .error-block .error-icon {

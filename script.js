@@ -1,12 +1,3 @@
-const subsidySources = [
-  // TODO: 請於此處填入各部會的 AI 補助資源網址，共計應有 8 部會
-  // 目前已有以下兩個部會提供
-  'https://gdb.nat.gov.tw/about/ai_subsidy/projects.json',
-  'http://tiip.itnet.org.tw/ai_subsidy/projects.json'
-  // https://raw.githubusercontent.com/ 開頭的，為沃草提供的測試資料，僅可使用於測試階段
-  // 'https://raw.githubusercontent.com/watchout-tw/2030-ai-subsidy/main/data/economic_affairs/ai_subsidy/projects.json',
-  // 'https://raw.githubusercontent.com/watchout-tw/2030-ai-subsidy/main/data/ntsc/ai_subsidy/projects.json'
-]
 const errorImgSrc = 'https://raw.githubusercontent.com/watchout-tw/2030-ai-subsidy/main/assets/error.png'
 const errorPageSrc = 'https://digi.nstc.gov.tw/AnnoucePage2.aspx'
 const _FIELDS = [
@@ -25,6 +16,22 @@ function createSection() {
   section.className = 'section';
 
   return section
+}
+
+function createEmptySectionHeader() {
+  const errorBlock = document.createElement('div');
+  errorBlock.className = 'error-header';
+
+  const errorMessageElement = document.createElement('div');
+  errorMessageElement.className = 'error-message';
+
+  const textElement = document.createElement('p');
+  textElement.className = 'text';
+  textElement.textContent = '暫無資料可供顯示';
+  errorMessageElement.appendChild(textElement);
+
+  errorBlock.appendChild(errorMessageElement);
+  return errorBlock;
 }
 
 function createSectionHeader(title, logo, count, updateTime) {
@@ -224,9 +231,21 @@ async function readData(dataList = []) {
   setButtonEvent();
 }
 
+function buildDefaultPage() {
+  const mainContent = document.querySelector('.main-content');
+  const section = createSection();
+  const sectionHeader = createEmptySectionHeader();
+  section.appendChild(sectionHeader);
+  mainContent.appendChild(section);
+}
+
 let dataList = []
-// 以下為兩筆範例假資料：
+// FIXME: 請移除以下兩筆範例假資料：
 dataList.push(ntscGovTwDataList)
 dataList.push(eaGovTwdataList)
 // TODO: 於此新增各部會 js 檔中提供的 xxxDataList 變數
-readData(dataList);
+if(dataList.length === 0) {
+  buildDefaultPage();
+} else {
+  readData(dataList);
+}
