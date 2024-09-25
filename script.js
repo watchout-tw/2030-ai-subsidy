@@ -18,7 +18,7 @@ function createSection() {
   return section
 }
 
-function createEmptySectionHeader() {
+function createEmptySectionHeader(message) {
   const errorBlock = document.createElement('div');
   errorBlock.className = 'error-header';
 
@@ -27,21 +27,27 @@ function createEmptySectionHeader() {
 
   const textElement = document.createElement('p');
   textElement.className = 'text';
-  textElement.textContent = '暫無資料可供顯示';
+  textElement.textContent = message;
   errorMessageElement.appendChild(textElement);
 
   errorBlock.appendChild(errorMessageElement);
   return errorBlock;
 }
 
-function createSectionHeader(title, logo, count, updateTime) {
+function createSectionHeader(title, logo, count, updateTime, isError = false) {
   const sectionHeader = document.createElement('div');
   sectionHeader.className = 'section-header';
 
-  const imgElement = document.createElement('img');
-  imgElement.src = logo;
-  imgElement.className = 'section-logo';
-  sectionHeader.appendChild(imgElement);
+  if(logo) {
+    const imgElement = document.createElement('img');
+    imgElement.src = logo;
+    imgElement.className = 'section-logo';
+    sectionHeader.appendChild(imgElement);
+  } else {
+    const divElement = document.createElement('div');
+    divElement.className = 'section-logo';
+    sectionHeader.appendChild(divElement);
+  }
 
   const sectionInfo = document.createElement('div');
   sectionInfo.className = 'section-info';
@@ -51,15 +57,19 @@ function createSectionHeader(title, logo, count, updateTime) {
   titleElement.className = 'title';
   sectionInfo.appendChild(titleElement);
 
-  const summaryElement = document.createElement('p');
-  summaryElement.textContent = `共 ${count} 筆補助資料`;
-  summaryElement.className = 'summary';
-  sectionInfo.appendChild(summaryElement);
+  if(!isError) {
+    const summaryElement = document.createElement('p');
+    summaryElement.textContent = `共 ${count} 筆補助資料`;
+    summaryElement.className = 'summary';
+    sectionInfo.appendChild(summaryElement);
+  }
 
-  const updateTimeElement = document.createElement('p');
-  updateTimeElement.textContent = `更新時間：${updateTime}`;
-  updateTimeElement.className = 'update-time';
-  sectionInfo.appendChild(updateTimeElement);
+  if(updateTime) {
+    const updateTimeElement = document.createElement('p');
+    updateTimeElement.textContent = `更新時間：${updateTime}`;
+    updateTimeElement.className = 'update-time';
+    sectionInfo.appendChild(updateTimeElement);
+  }
 
   sectionHeader.appendChild(sectionInfo);
 
@@ -221,7 +231,7 @@ async function readData(dataList = []) {
     const data = dataList[i]
     const mainContent = document.querySelector('.main-content');
     const section = createSection();
-    const sectionHeader = createSectionHeader(data.projects[0].organizer, data.projects[0].logo, data.projects.length, data.last_update_time);
+    const sectionHeader = createSectionHeader(data.projects[0].organizer, data.projects[0].logo, data.projects.length, data.last_update_time, data.isError);
     section.appendChild(sectionHeader);
     data.projects.forEach(item => {
       section.appendChild(buildBlock(item));
@@ -231,21 +241,45 @@ async function readData(dataList = []) {
   setButtonEvent();
 }
 
-function buildDefaultPage() {
-  const mainContent = document.querySelector('.main-content');
-  const section = createSection();
-  const sectionHeader = createEmptySectionHeader();
-  section.appendChild(sectionHeader);
-  mainContent.appendChild(section);
+let dataList = []
+
+// TODO: 若尚有其它 AI 補助資源，請於此處填入，樣板如下：
+/*
+  try {
+    dataList.push(**請填入補助資源變數名稱**);
+  } catch(err) {
+    dataList.push({
+      last_update_time: '',
+      isError: true,
+      projects: [{
+        organizer: '**補助來源單位名稱**'
+      }]
+    })
+  }
+*/
+
+try {
+  dataList.push(digiMoeaGovTwDataList);
+} catch(err) {
+  dataList.push({
+    last_update_time: '',
+    isError: true,
+    projects: [{
+      organizer: '經濟部'
+    }]
+  })
 }
 
-let dataList = []
-// FIXME: 請移除以下兩筆範例假資料：
-dataList.push(ntscGovTwDataList)
-dataList.push(eaGovTwdataList)
-// TODO: 於此新增各部會 js 檔中提供的 xxxDataList 變數
-if(dataList.length === 0) {
-  buildDefaultPage();
-} else {
-  readData(dataList);
+try {
+  dataList.push(ndcGovTwDataList);
+} catch(err) {
+  dataList.push({
+    last_update_time: '',
+    isError: true,
+    projects: [{
+      organizer: '國家發展委員會管制考核處'
+    }]
+  })
 }
+
+readData(dataList);
