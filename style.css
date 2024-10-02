@@ -61,7 +61,7 @@ header {
 }
 
 .section-logo {
-  width: 72px;
+  min-width: 72px;
   height: 72px;
   margin-right: 5px;
 }

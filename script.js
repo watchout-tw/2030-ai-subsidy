@@ -1,4 +1,5 @@
 const errorImgSrc = 'https://raw.githubusercontent.com/watchout-tw/2030-ai-subsidy/main/assets/error.png'
+const doitLogoImgSrc = 'https://raw.githubusercontent.com/watchout-tw/2030-ai-subsidy/main/assets/doitLogo.png'
 const errorPageSrc = 'https://digi.nstc.gov.tw/AnnoucePage2.aspx'
 const _FIELDS = [
   'name',
@@ -243,29 +244,17 @@ async function readData(dataList = []) {
 
 let dataList = []
 
-// TODO: 若尚有其它 AI 補助資源，請於此處填入，樣板如下：
-/*
-  try {
-    dataList.push(**請填入補助資源變數名稱**);
-  } catch(err) {
-    dataList.push({
-      last_update_time: '',
-      isError: true,
-      projects: [{
-        organizer: '**補助來源單位名稱**'
-      }]
-    })
-  }
-*/
-
 try {
   dataList.push(digiMoeaGovTwDataList);
+  if(digiMoeaGovTwDataList.projects && digiMoeaGovTwDataList.projects.length > 0) {
+    digiMoeaGovTwDataList.projects[0].logo = doitLogoImgSrc
+  }
 } catch(err) {
   dataList.push({
     last_update_time: '',
     isError: true,
     projects: [{
-      organizer: '經濟部'
+      organizer: '經濟部產業技術司'
     }]
   })
 }
