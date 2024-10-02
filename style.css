@@ -157,7 +157,7 @@ header {
 }
 
 .detail-content p {
-  margin: 10px 0;
+  margin: 10px 0 20px 0;
 }
 
 .detail-title {
@@ -167,6 +167,7 @@ header {
 
 .detail-content-text {
   font-size: 18px;
+  line-height: 1.5;
   color: #000000;
 }
 
