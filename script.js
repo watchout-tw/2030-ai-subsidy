@@ -39,16 +39,19 @@ function createSectionHeader(title, logo, count, updateTime, isError = false) {
   const sectionHeader = document.createElement('div');
   sectionHeader.className = 'section-header';
 
+  const logoContainer = document.createElement('div');
+  logoContainer.className = 'section-logo-container';
   if(logo) {
     const imgElement = document.createElement('img');
     imgElement.src = logo;
     imgElement.className = 'section-logo';
-    sectionHeader.appendChild(imgElement);
+    logoContainer.appendChild(imgElement);
   } else {
     const divElement = document.createElement('div');
     divElement.className = 'section-logo';
-    sectionHeader.appendChild(divElement);
+    logoContainer.appendChild(divElement);
   }
+  sectionHeader.appendChild(logoContainer);
 
   const sectionInfo = document.createElement('div');
   sectionInfo.className = 'section-info';
